@@ -1,6 +1,6 @@
 import { Center, Image } from 'native-base'
 
-const newIcon = require('../assets/new-icon.png')
+const newIcon = require('../assets/images/new-icon.png')
 
 export default function TabBarIconNew() {
   return (

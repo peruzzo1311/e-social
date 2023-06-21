@@ -1,5 +1,5 @@
 import { Box, Icon, Image, View } from 'native-base'
-const logoPrisma = require('../../assets/logo-prisma.png')
+const logoPrisma = require('../../assets/images/logo-prisma.png')
 import { Ionicons } from '@expo/vector-icons'
 
 export default function Header() {

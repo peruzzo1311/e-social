@@ -9,7 +9,6 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor='#0171BB' barStyle='light-content' />
-
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
