@@ -1,9 +1,11 @@
-import { Text, View } from 'react-native'
+import { NativeBaseProvider } from 'native-base'
+import Routes from './src/routes'
+import 'react-native-gesture-handler'
 
 export default function App() {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <NativeBaseProvider>
+      <Routes />
+    </NativeBaseProvider>
   )
 }
