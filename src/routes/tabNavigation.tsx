@@ -13,7 +13,10 @@ const Tab = createBottomTabNavigator()
 export default function TabRoutes() {
   return (
     <Tab.Navigator
+      initialRouteName='Home'
       screenOptions={{
+        lazy: true,
+        tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarActiveTintColor: '#F5F5F5',
         tabBarInactiveTintColor: '#F5F5F5',
