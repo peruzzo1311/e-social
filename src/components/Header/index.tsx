@@ -43,6 +43,8 @@ export default function Header({ opcao }: { opcao: number }) {
           </TouchableOpacity>
         </Box>
       )
+      break
+
     case 1:
       return (
         <Box
@@ -71,6 +73,8 @@ export default function Header({ opcao }: { opcao: number }) {
           </TouchableOpacity>
         </Box>
       )
+      break
+
     case 2:
       return (
         <Box
@@ -97,6 +101,8 @@ export default function Header({ opcao }: { opcao: number }) {
           </Button>
         </Box>
       )
+      break
+
     case 3:
       return (
         <Box
@@ -126,6 +132,52 @@ export default function Header({ opcao }: { opcao: number }) {
         </Box>
       )
       break
+
+    case 4:
+      return (
+        <Box
+          safeAreaTop
+          bgColor={'#0171BB'}
+          h={16}
+          flexDir={'row'}
+          alignItems={'center'}
+          px={4}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack()
+            }}
+          >
+            <AntDesign name='arrowleft' size={28} color={'white'} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Perfil')
+            }}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+              marginLeft: 24,
+            }}
+          >
+            <Icon
+              as={Ionicons}
+              name='person-circle'
+              size={12}
+              color={'white'}
+            />
+
+            <Text color={'#F5F5F5'} fontWeight={700} fontSize={'xl'}>
+              Matheus Soares
+            </Text>
+          </TouchableOpacity>
+        </Box>
+      )
+      break
+
     default:
       return (
         <Box
@@ -158,5 +210,6 @@ export default function Header({ opcao }: { opcao: number }) {
           </TouchableOpacity>
         </Box>
       )
+      break
   }
 }

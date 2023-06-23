@@ -8,9 +8,10 @@ export default function FeedCard() {
   const [liked, setLiked] = useState(false)
 
   return (
-    <View shadow={1} w={'100%'} bgColor={'#F5F5F5'} borderRadius={8}>
+    <View shadow={2} w={'100%'} bgColor={'#F5F5F5'} borderRadius={8}>
       <View
         p={2}
+        pb={1}
         flexDir={'row'}
         alignItems={'center'}
         borderBottomWidth={1}
@@ -38,8 +39,8 @@ export default function FeedCard() {
         </View>
       </View>
 
-      <View p={4}>
-        <Text fontSize={'md'} fontWeight={400}>
+      <View px={4} pt={2}>
+        <Text fontSize={'md'}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
           voluptatibus, quibusdam, quia, quod voluptate voluptatem quos
           voluptatum quas doloribus quidem fugiat. Quisquam voluptatibus,
@@ -49,7 +50,7 @@ export default function FeedCard() {
       </View>
 
       {liked && (
-        <View px={4} pb={4}>
+        <View p={4}>
           <TouchableOpacity
             style={{
               display: 'flex',
@@ -58,7 +59,7 @@ export default function FeedCard() {
               gap: 8,
             }}
           >
-            <View w={6} h={6}>
+            <View w={8} h={8}>
               <Image
                 source={likedIcon}
                 resizeMode='contain'
@@ -78,12 +79,9 @@ export default function FeedCard() {
       <View
         borderTopWidth={1}
         borderTopColor={'gray.200'}
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}
+        mt={2}
+        flexDir={'row'}
+        justifyContent={'space-between'}
       >
         <TouchableOpacity
           onPress={() => setLiked(!liked)}
@@ -118,7 +116,7 @@ export default function FeedCard() {
         </TouchableOpacity>
 
         <TouchableOpacity style={{ padding: 12 }}>
-          <HStack alignItems={'center'} space={1}>
+          <HStack justifyContent={'center'} alignItems={'center'} space={1}>
             <Icon as={Ionicons} name='share-social-outline' size={6} />
 
             <Text fontSize={'sm'} fontWeight={600}>
