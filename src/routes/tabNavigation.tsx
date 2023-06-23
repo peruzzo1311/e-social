@@ -10,7 +10,7 @@ import TabBarIconNew from './tabBarIconNew'
 
 const Tab = createBottomTabNavigator()
 
-export default function TabRoutes() {
+export default function TabRoutes({ navigation }: any) {
   return (
     <Tab.Navigator
       initialRouteName='Home'
@@ -61,6 +61,7 @@ export default function TabRoutes() {
         name='Messenger'
         component={Messenger}
         options={{
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? 'chatbubbles' : 'chatbubbles-outline'}
