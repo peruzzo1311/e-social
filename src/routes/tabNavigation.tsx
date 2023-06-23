@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
   const [isVisible, setIsVisible] = React.useState(true);
-  
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -50,7 +50,6 @@ export default function TabRoutes() {
               style={{ marginLeft: 16 }}
             />
           ),
-
         }}
       />
 
@@ -74,14 +73,9 @@ export default function TabRoutes() {
               style={{ marginRight: 16 }}
             />
           ),
-          tabBarButton: (props) => (
-            <TouchableOpacity
-              {...props}
-              onPress={() => {
-                setIsVisible(false);
-              }}
-            />
-          ),
+          tabBarStyle: {
+            display: 'none',
+          },
         }}
       />
     </Tab.Navigator>
