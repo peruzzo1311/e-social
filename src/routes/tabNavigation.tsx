@@ -10,7 +10,7 @@ import TabBarIconNew from './tabBarIconNew'
 
 const Tab = createBottomTabNavigator()
 
-export default function TabRoutes({ navigation }: any) {
+export default function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName='Home'
