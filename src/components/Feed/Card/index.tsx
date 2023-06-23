@@ -1,7 +1,8 @@
-import { Text, Icon, View, HStack } from 'native-base'
+import { Text, Icon, View, HStack, Image } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import React, { useState } from 'react'
+const likedIcon = require('../../../assets/images/likedIcon.png')
 
 export default function FeedCard() {
   const [liked, setLiked] = useState(false)
@@ -26,7 +27,7 @@ export default function FeedCard() {
 
         <View mt={-2}>
           <TouchableOpacity>
-            <Text fontSize={'lg'} fontWeight={700} fontFamily={'body'}>
+            <Text fontSize={'lg'} fontWeight={700}>
               Matheus Soares
             </Text>
           </TouchableOpacity>
@@ -38,7 +39,7 @@ export default function FeedCard() {
       </View>
 
       <View p={4}>
-        <Text fontSize={'md'} fontWeight={400} fontFamily={'body'}>
+        <Text fontSize={'md'} fontWeight={400}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
           voluptatibus, quibusdam, quia, quod voluptate voluptatem quos
           voluptatum quas doloribus quidem fugiat. Quisquam voluptatibus,
@@ -46,6 +47,33 @@ export default function FeedCard() {
           doloribus quidem fugiat.
         </Text>
       </View>
+
+      {liked && (
+        <View px={4} pb={4}>
+          <TouchableOpacity
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+            }}
+          >
+            <View w={6} h={6}>
+              <Image
+                source={likedIcon}
+                resizeMode='contain'
+                w={'100%'}
+                h={'100%'}
+                alt='Icone coração'
+              />
+            </View>
+
+            <Text fontSize={'sm'} fontWeight={700} color={'gray.400'}>
+              1
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       <View
         borderTopWidth={1}
