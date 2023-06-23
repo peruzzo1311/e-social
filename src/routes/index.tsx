@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/stack'
 import TabRoutes from './tabNavigation'
 import { StatusBar } from 'native-base'
+import Perfil from '../screens/Perfil'
 
 const Stack = createStackNavigator()
 
@@ -19,6 +20,7 @@ export default function Routes() {
         }}
       >
         <Stack.Screen name='HomeRoute' component={TabRoutes} />
+        <Stack.Screen name='Perfil' component={Perfil} /> 
       </Stack.Navigator>
     </NavigationContainer>
   )
