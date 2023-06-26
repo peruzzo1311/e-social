@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Box, Icon, Image, Button, Text, View, IconButton } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const logoPrisma = require('../../assets/images/logo-prisma.png');
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 const theuzin = require('../../assets/images/LilTheuz.png');
 export default function Header({ opcao }: { opcao: number }) {
@@ -175,6 +175,34 @@ export default function Header({ opcao }: { opcao: number }) {
           />
         </Box>
       );
+      case 5:
+        return (
+          <Box
+            safeAreaTop
+            bgColor={'#0171BB'}
+            h={16}
+            flexDir={'row'}
+            justifyContent={'space-between'}
+            alignItems={'center'}
+            px={4}
+          >
+  
+            <Image
+              source={logoPrisma}
+              alt="Logo Prisma"
+              resizeMode="cover"
+              h={16}
+              w={175}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Chat');
+              }}
+            >
+              <MaterialIcons name="add-comment" size={28} color={'white'} />
+            </TouchableOpacity>
+          </Box>
+        );
     default:
       return (
         <Box

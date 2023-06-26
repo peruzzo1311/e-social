@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { View, Text, IconButton, Input, Icon } from 'native-base';
 import { FlatList } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import Header from '../../components/Header';
-
+import { io } from 'socket.io-client';
 const Chat = (props: any) => {
+  const socket = io("http://192.168.1.140:8082")
+  React.useEffect(() => {
+    socket.on("connect", () => {
+      console.log(socket.connected); // true
+    });
+    socket.on('hello', (mensage: string) => {
+      console.log(mensage); 
+    });
+  }, []);
   return (
     <View flex={1} w={'100%'}>
       <Header opcao={4} />
