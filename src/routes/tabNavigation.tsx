@@ -65,6 +65,7 @@ export default function TabRoutes() {
         name="Messenger"
         component={Messenger}
         options={{
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? 'chatbubbles' : 'chatbubbles-outline'}
@@ -73,9 +74,6 @@ export default function TabRoutes() {
               style={{ marginRight: 16 }}
             />
           ),
-          tabBarStyle: {
-            display: 'none',
-          },
         }}
       />
     </Tab.Navigator>

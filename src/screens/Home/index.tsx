@@ -5,7 +5,7 @@ import Feed from '../../components/Feed'
 export default function Home() {
   return (
     <View flex={1} bgColor={'#E5E5E5'}>
-      <Header />
+      <Header opcao={0}/>
 
       <Feed />
     </View>

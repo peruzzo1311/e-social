@@ -1,8 +1,11 @@
 import { Text, Icon, View, HStack } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import React, { useState } from 'react'
 
 export default function FeedCard() {
+  const [liked, setLiked] = useState(false)
+
   return (
     <View shadow={1} w={'100%'} bgColor={'#F5F5F5'} borderRadius={8}>
       <View
@@ -13,7 +16,12 @@ export default function FeedCard() {
         borderBottomColor={'gray.200'}
       >
         <TouchableOpacity>
-          <Icon as={Ionicons} name='person-circle' size={16} color={'#bbb'} />
+          <Icon
+            as={Ionicons}
+            name='person-circle'
+            size={'6xl'}
+            color={'#bbb'}
+          />
         </TouchableOpacity>
 
         <View mt={-2}>
@@ -47,20 +55,31 @@ export default function FeedCard() {
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
-          paddingVertical: 12,
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setLiked(!liked)}
+          style={{ padding: 12 }}
+        >
           <HStack alignItems={'center'} space={1}>
-            <Icon as={Ionicons} name='heart-outline' size={6} />
+            <Icon
+              as={Ionicons}
+              name={liked ? 'heart' : 'heart-outline'}
+              size={6}
+              color={liked ? 'red.500' : 'black'}
+            />
 
-            <Text fontSize={'sm'} fontWeight={600}>
+            <Text
+              fontSize={'sm'}
+              fontWeight={600}
+              color={liked ? 'red.500' : 'black'}
+            >
               Curtir
             </Text>
           </HStack>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity style={{ padding: 12 }}>
           <HStack justifyContent={'center'} alignItems={'center'} space={1}>
             <Icon as={Ionicons} name='chatbubble-outline' size={6} />
 
@@ -70,7 +89,7 @@ export default function FeedCard() {
           </HStack>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity style={{ padding: 12 }}>
           <HStack alignItems={'center'} space={1}>
             <Icon as={Ionicons} name='share-social-outline' size={6} />
 
