@@ -1,19 +1,22 @@
-import { Ionicons } from '@expo/vector-icons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useRoute } from '@react-navigation/native';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
-import Home from '../screens/Home'
-import Messenger from '../screens/Messenger'
-import NewPost from '../screens/NewPost'
-import TabBarIconNew from './tabBarIconNew'
+import Home from '../screens/Home';
+import Messenger from '../screens/Messenger';
+import NewPost from '../screens/NewPost';
+import TabBarIconNew from './tabBarIconNew';
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
+  const [isVisible, setIsVisible] = React.useState(true);
+
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName="Home"
       screenOptions={{
         lazy: true,
         tabBarHideOnKeyboard: true,
@@ -22,6 +25,7 @@ export default function TabRoutes() {
         tabBarInactiveTintColor: '#F5F5F5',
         tabBarShowLabel: false,
         tabBarStyle: {
+          display: isVisible ? 'flex' : 'none',
           position: 'absolute',
           bottom: 16,
           right: 16,
@@ -35,7 +39,7 @@ export default function TabRoutes() {
       }}
     >
       <Tab.Screen
-        name='Home'
+        name="Home"
         component={Home}
         options={{
           tabBarIcon: ({ color, focused }) => (
@@ -50,7 +54,7 @@ export default function TabRoutes() {
       />
 
       <Tab.Screen
-        name='NewPost'
+        name="NewPost"
         component={NewPost}
         options={{
           tabBarIcon: () => <TabBarIconNew />,
@@ -58,10 +62,9 @@ export default function TabRoutes() {
       />
 
       <Tab.Screen
-        name='Messenger'
+        name="Messenger"
         component={Messenger}
         options={{
-          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? 'chatbubbles' : 'chatbubbles-outline'}
@@ -73,5 +76,5 @@ export default function TabRoutes() {
         }}
       />
     </Tab.Navigator>
-  )
+  );
 }

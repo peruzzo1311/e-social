@@ -7,6 +7,7 @@ import TabRoutes from './tabNavigation'
 import { StatusBar } from 'native-base'
 import Perfil from '../screens/Perfil'
 import Login from '../screens/Login'
+import Chat from '../screens/Chat'
 
 const Stack = createStackNavigator()
 
@@ -23,6 +24,7 @@ export default function Routes() {
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='HomeRoute' component={TabRoutes} />
         <Stack.Screen name='Perfil' component={Perfil} />
+        <Stack.Screen name='Chat' component={Chat} />
       </Stack.Navigator>
     </NavigationContainer>
   )

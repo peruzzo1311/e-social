@@ -1,11 +1,11 @@
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { Box, Icon, Image, Button, Text } from 'native-base'
+import { Box, Icon, Image, Button, Text, View, IconButton } from 'native-base'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 const logoPrisma = require('../../assets/images/logo-prisma.png')
-import { AntDesign } from '@expo/vector-icons'
-import { useState } from 'react'
-
+import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons'
+import React, { useState } from 'react'
+const theuzin = require('../../assets/images/LilTheuz.png')
 export default function Header({ opcao }: { opcao: number }) {
   const navigation: any = useNavigation()
   const [theme, setTheme] = useState(false)
@@ -140,8 +140,10 @@ export default function Header({ opcao }: { opcao: number }) {
           bgColor={'#0171BB'}
           h={16}
           flexDir={'row'}
+          justifyContent={'space-between'}
           alignItems={'center'}
           px={4}
+          pr={-1}
         >
           <TouchableOpacity
             onPress={() => {
@@ -150,34 +152,64 @@ export default function Header({ opcao }: { opcao: number }) {
           >
             <AntDesign name='arrowleft' size={28} color={'white'} />
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Perfil')
-            }}
+          <View
             style={{
-              display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              gap: 8,
-              marginLeft: 24,
+              width: '60%',
             }}
           >
-            <Icon
-              as={Ionicons}
-              name='person-circle'
+            <Image
+              source={theuzin}
+              resizeMode={'cover'}
+              alt='Alternate Text'
               size={12}
-              color={'white'}
+              borderRadius={'full'}
             />
-
-            <Text color={'#F5F5F5'} fontWeight={700} fontSize={'xl'}>
-              Matheus Soares
-            </Text>
+            <View h={'100%'} px={4}>
+              <Text fontSize={16} color={'white'} fontWeight={'bold'}>
+                Matheus Soares
+              </Text>
+            </View>
+          </View>
+          <IconButton
+            colorScheme='indigo'
+            variant={'ghost'}
+            _icon={{
+              as: Entypo,
+              name: 'dots-three-vertical',
+              color: 'white',
+            }}
+          />
+        </Box>
+      )
+    case 5:
+      return (
+        <Box
+          safeAreaTop
+          bgColor={'#0171BB'}
+          h={16}
+          flexDir={'row'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+          px={4}
+        >
+          <Image
+            source={logoPrisma}
+            alt='Logo Prisma'
+            resizeMode='cover'
+            h={16}
+            w={175}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Chat')
+            }}
+          >
+            <MaterialIcons name='add-comment' size={28} color={'white'} />
           </TouchableOpacity>
         </Box>
       )
-      break
-
     default:
       return (
         <Box
