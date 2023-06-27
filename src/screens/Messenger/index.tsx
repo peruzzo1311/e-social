@@ -14,7 +14,6 @@ export default function Messenger() {
   const fetchConversas = async (): Promise<void> => {
     let resposta: IChat[] = await getConversas();
     setConversas(resposta);
-    console.log(conversas);
   };
 
   React.useEffect(() => {

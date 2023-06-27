@@ -32,25 +32,27 @@ export default function Header({
         >
           <Image
             source={logoPrisma}
-            alt="Logo Prisma"
-            resizeMode="cover"
+            alt='Logo Prisma'
+            resizeMode='cover'
             h={16}
             w={175}
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Perfil');
+              navigation.navigate('Profile')
             }}
           >
             <Icon
               as={Ionicons}
-              name="person-circle"
+              name='person-circle'
               size={12}
               color={'white'}
             />
           </TouchableOpacity>
         </Box>
-      );
+      )
+      break
+
     case 1:
       return (
         <Box
@@ -64,21 +66,23 @@ export default function Header({
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack();
+              navigation.goBack()
             }}
           >
-            <AntDesign name="arrowleft" size={28} color={'white'} />
+            <AntDesign name='arrowleft' size={28} color={'white'} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setTheme(!theme)}>
+          {/* <TouchableOpacity onPress={() => setTheme(!theme)}>
             <Icon
               as={Ionicons}
               name={theme ? 'sunny-outline' : 'moon-outline'}
               size={8}
               color={'white'}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </Box>
-      );
+      )
+      break
+
     case 2:
       return (
         <Box
@@ -92,10 +96,10 @@ export default function Header({
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack();
+              navigation.goBack()
             }}
           >
-            <AntDesign name="close" size={36} color={'white'} />
+            <AntDesign name='close' size={36} color={'white'} />
           </TouchableOpacity>
 
           <Button bgColor={'white'} w={'30%'}>
@@ -104,7 +108,9 @@ export default function Header({
             </Text>
           </Button>
         </Box>
-      );
+      )
+      break
+
     case 3:
       return (
         <Box
@@ -118,21 +124,23 @@ export default function Header({
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack();
+              navigation.goBack()
             }}
           >
-            <AntDesign name="arrowleft" size={28} color={'white'} />
+            <AntDesign name='arrowleft' size={28} color={'white'} />
           </TouchableOpacity>
 
           <Image
             source={logoPrisma}
-            alt="Logo Prisma"
-            resizeMode="cover"
+            alt='Logo Prisma'
+            resizeMode='cover'
             h={16}
             w={175}
           />
         </Box>
-      );
+      )
+      break
+
     case 4:
       return (
         <Box
@@ -147,10 +155,10 @@ export default function Header({
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.goBack();
+              navigation.goBack()
             }}
           >
-            <AntDesign name="arrowleft" size={28} color={'white'} />
+            <AntDesign name='arrowleft' size={28} color={'white'} />
           </TouchableOpacity>
           <View
             style={{
@@ -162,7 +170,7 @@ export default function Header({
             <Image
               source={{ uri: img }}
               resizeMode={'cover'}
-              alt="Alternate Text"
+              alt='Alternate Text'
               size={12}
               borderRadius={'full'}
             />
@@ -173,7 +181,7 @@ export default function Header({
             </View>
           </View>
           <IconButton
-            colorScheme="indigo"
+            colorScheme='indigo'
             variant={'ghost'}
             _icon={{
               as: Entypo,
@@ -223,24 +231,25 @@ export default function Header({
         >
           <Image
             source={logoPrisma}
-            alt="Logo Prisma"
-            resizeMode="cover"
+            alt='Logo Prisma'
+            resizeMode='cover'
             h={16}
             w={175}
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Perfil');
+              navigation.navigate('Profile')
             }}
           >
             <Icon
               as={Ionicons}
-              name="person-circle"
+              name='person-circle'
               size={12}
               color={'white'}
             />
           </TouchableOpacity>
         </Box>
-      );
+      )
+      break
   }
 }

@@ -4,34 +4,41 @@ import { View, Text, IconButton, Input, Icon } from 'native-base';
 import { FlatList } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
 import Header from '../../components/Header';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { IChat } from '../../interfaces/IChat';
 import { IMensagem } from '../../interfaces/IMensagem';
 import { getMensagens } from '../../api/messages';
+import { useSelector } from 'react-redux';
+import { IUser } from '../../interfaces/IUser';
+import { socket } from '../../../App';
+
 const Chat = (props: any) => {
   const date = new Date();
   const conversa: IChat = props.route.params;
-  const socket = io('http://192.168.1.140:8082');
   const [mensageTxt, setMensageTxt] = React.useState<string>('');
   const [mensagens, setMensagens] = React.useState<IMensagem[]>([]);
-
+  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
+  React.useEffect(() => {
+    fetchMensagens();
+    socket.on('chat mensage', (data: IMensagem[]) => {
+      setMensagens(data);
+    });
+  }, []);
   const sendMensage = () => {
-    socket.emit('chat mensage', mensageTxt);
-    setMensagens([
-      {
-        message: mensageTxt,
-        sendFrom: 'Gustavo Peruzzo',
-        date: String(date.getTime()),
-      },
-      ...mensagens,
-    ]);
+    let mensagen: IMensagem = {
+      message: mensageTxt,
+      sendFrom: userInfo.username,
+      date: String(date.getTime()),
+    };
+    let teste: IMensagem[] = [mensagen, ...mensagens];
+    setMensagens([mensagen, ...mensagens]);
+    socket.emit('chat mensage', teste);
     setMensageTxt('');
   };
 
   const fetchMensagens = async (): Promise<void> => {
     let resposta: IMensagem[] = await getMensagens(conversa.chatId);
     setMensagens(resposta);
-    console.log(resposta);
   };
 
   const renderItem = ({ item, index }: { item: IMensagem; index: number }) => {
@@ -39,33 +46,26 @@ const Chat = (props: any) => {
       <View
         w={'100%'}
         alignItems={
-          item.sendFrom === 'Gustavo Peruzzo' ? 'flex-end' : 'flex-start'
+          item.sendFrom === userInfo.username ? 'flex-end' : 'flex-start'
         }
       >
         <View
           w={'80%'}
           bgColor={
-            item.sendFrom === 'Gustavo Peruzzo' ? 'primary.300' : 'white'
+            item.sendFrom === userInfo.username ? 'primary.300' : 'white'
           }
           p={4}
           m={2}
           shadow={2}
           borderRadius={12}
         >
-          <Text color={item.sendFrom === 'Gustavo Peruzzo' ? 'white' : 'black'}>
+          <Text color={item.sendFrom === userInfo.username ? 'white' : 'black'}>
             {item.message}
           </Text>
         </View>
       </View>
     );
   };
-
-  React.useEffect(() => {
-    fetchMensagens();
-    // socket.on('connect', () => {
-    //   console.log(socket.connected);
-    // });
-  }, []);
 
   return (
     <View flex={1} w={'100%'}>
