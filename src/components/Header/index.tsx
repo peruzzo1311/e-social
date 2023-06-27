@@ -1,14 +1,22 @@
-import { Ionicons } from '@expo/vector-icons'
+import { AntDesign, Entypo, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { Box, Icon, Image, Button, Text, View, IconButton } from 'native-base'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-const logoPrisma = require('../../assets/images/logo-prisma.png')
-import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons'
+import {
+  Box,
+  Button,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  Text,
+  View,
+} from 'native-base'
 import React, { useState } from 'react'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+
+const logoPrisma = require('../../assets/images/logo-prisma.png')
 const theuzin = require('../../assets/images/LilTheuz.png')
 export default function Header({ opcao }: { opcao: number }) {
   const navigation: any = useNavigation()
-  const [theme, setTheme] = useState(false)
 
   switch (opcao) {
     case 0:
@@ -27,20 +35,30 @@ export default function Header({ opcao }: { opcao: number }) {
             alt='Logo Prisma'
             resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Profile')
-            }}
-          >
-            <Icon
-              as={Ionicons}
-              name='person-circle'
-              size={12}
-              color={'white'}
-            />
-          </TouchableOpacity>
+
+          <HStack alignItems={'center'} space={4}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Notifications')}
+            >
+              <Icon
+                as={Ionicons}
+                name='ios-notifications'
+                size={8}
+                color={'white'}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+              <Icon
+                as={Ionicons}
+                name='person-circle'
+                size={8}
+                color={'white'}
+              />
+            </TouchableOpacity>
+          </HStack>
         </Box>
       )
       break
@@ -127,7 +145,7 @@ export default function Header({ opcao }: { opcao: number }) {
             alt='Logo Prisma'
             resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
         </Box>
       )
@@ -199,7 +217,7 @@ export default function Header({ opcao }: { opcao: number }) {
             alt='Logo Prisma'
             resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
           <TouchableOpacity
             onPress={() => {
@@ -226,7 +244,7 @@ export default function Header({ opcao }: { opcao: number }) {
             alt='Logo Prisma'
             resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
           <TouchableOpacity
             onPress={() => {
