@@ -1,22 +1,31 @@
-import { AntDesign, Entypo, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import {
   Box,
-  Button,
-  HStack,
   Icon,
-  IconButton,
   Image,
+  Button,
   Text,
   View,
+  IconButton,
+  HStack,
 } from 'native-base'
-import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-
 const logoPrisma = require('../../assets/images/logo-prisma.png')
+import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons'
+import React, { useState } from 'react'
 const theuzin = require('../../assets/images/LilTheuz.png')
-export default function Header({ opcao }: { opcao: number }) {
+export default function Header({
+  opcao,
+  nome,
+  img,
+}: {
+  opcao: number
+  nome?: string
+  img?: string
+}) {
   const navigation: any = useNavigation()
+  const [theme, setTheme] = useState(false)
 
   switch (opcao) {
     case 0:
@@ -178,7 +187,7 @@ export default function Header({ opcao }: { opcao: number }) {
             }}
           >
             <Image
-              source={theuzin}
+              source={{ uri: img }}
               resizeMode={'cover'}
               alt='Alternate Text'
               size={12}
@@ -186,7 +195,7 @@ export default function Header({ opcao }: { opcao: number }) {
             />
             <View h={'100%'} px={4}>
               <Text fontSize={16} color={'white'} fontWeight={'bold'}>
-                Matheus Soares
+                {nome}
               </Text>
             </View>
           </View>
