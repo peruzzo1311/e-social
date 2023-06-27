@@ -1,8 +1,9 @@
-import { Text, Icon, View, HStack, Image } from 'native-base'
-import { Ionicons } from '@expo/vector-icons'
+import { Text, Icon, View, HStack, Image, Pressable } from 'native-base'
+import { Ionicons, Feather } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import React, { useState } from 'react'
 const likedIcon = require('../../../assets/images/likedIcon.png')
+import { Menu } from 'native-base'
 
 export default function FeedCard() {
   const [liked, setLiked] = useState(false)
@@ -37,6 +38,39 @@ export default function FeedCard() {
             21 de julho de 2023
           </Text>
         </View>
+
+        <Menu
+          w='200'
+          placement='left'
+          trigger={(triggerProps) => {
+            return (
+              <Pressable
+                ml={'auto'}
+                mr={2}
+                accessibilityLabel='Editar ou excluir publicação'
+                {...triggerProps}
+              >
+                <Icon as={Ionicons} name='ellipsis-vertical' size={6} />
+              </Pressable>
+            )
+          }}
+        >
+          <Menu.Item>
+            <Icon as={Feather} name='edit' size={6} />
+
+            <Text fontSize={'sm'} fontWeight={600}>
+              Editar
+            </Text>
+          </Menu.Item>
+
+          <Menu.Item>
+            <Icon as={Feather} name='trash-2' size={6} />
+
+            <Text fontSize={'sm'} fontWeight={600}>
+              Excluir
+            </Text>
+          </Menu.Item>
+        </Menu>
       </View>
 
       <View px={4} pt={2}>

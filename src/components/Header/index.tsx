@@ -31,7 +31,7 @@ export default function Header({ opcao }: { opcao: number }) {
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Perfil')
+              navigation.navigate('Profile')
             }}
           >
             <Icon
@@ -63,14 +63,14 @@ export default function Header({ opcao }: { opcao: number }) {
           >
             <AntDesign name='arrowleft' size={28} color={'white'} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setTheme(!theme)}>
+          {/* <TouchableOpacity onPress={() => setTheme(!theme)}>
             <Icon
               as={Ionicons}
               name={theme ? 'sunny-outline' : 'moon-outline'}
               size={8}
               color={'white'}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </Box>
       )
       break
@@ -230,7 +230,7 @@ export default function Header({ opcao }: { opcao: number }) {
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Perfil')
+              navigation.navigate('Profile')
             }}
           >
             <Icon
