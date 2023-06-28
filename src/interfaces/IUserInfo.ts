@@ -5,5 +5,6 @@ export default interface IUserInfo {
   tenantDomain: string
   tenantName: string
   accessToken: string
+  login: string
   password: string
 }

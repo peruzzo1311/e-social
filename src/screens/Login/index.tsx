@@ -14,6 +14,7 @@ import {
 import React, { useEffect } from 'react'
 import { Keyboard } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { getUserInfo, LoginSenior } from '../../api/Login'
 import IUserInfo from '../../interfaces/IUserInfo'
@@ -23,44 +24,17 @@ import { setUser } from '../../redux/user/slice'
 const logoPrisma = require('../../assets/images/logo-prisma.png')
 const logoPrismaMini = require('../../assets/images/logo-mini.png')
 export default function Login({ navigation }: { navigation: any }) {
-  const [username, setUsername] = React.useState('')
-  const [password, setPassword] = React.useState('')
   const [keyboardIsShown, setKeyboardIsShown] = React.useState(false)
   const [showPassword, setShowPassword] = React.useState(false)
+  const [keepLogin, setKeepLogin] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
+  const [username, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
   const dispatch = useAppDispatch()
 
-  const handleLogin = async () => {
-    setIsLoading(true)
-
-    try {
-      const token: string = await LoginSenior(username, password)
-
-      getUserInfo(username, token).then((res) => {
-        const userInfo: IUserInfo = {
-          username: res.username,
-          fullName: res.fullName,
-          email: res.email,
-          password: password,
-          tenantDomain: res.tenantDomain,
-          tenantName: res.tenantName,
-          accessToken: token,
-        }
-
-        dispatch(setUser(userInfo))
-      })
-
-      if (token) {
-        navigation.navigate('HomeRoute')
-      }
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   useEffect(() => {
+    fetchUserData()
+
     Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardIsShown(true)
     })
@@ -73,6 +47,69 @@ export default function Login({ navigation }: { navigation: any }) {
       Keyboard.removeAllListeners('keyboardDidHide')
     }
   }, [])
+
+  const fetchUserData = async () => {
+    setIsLoading(true)
+    try {
+      const keepLogin = await AsyncStorage.getItem('keepLogin')
+
+      if (keepLogin == 'true') {
+        setKeepLogin(true)
+        const userData = await AsyncStorage.getItem('userData')
+
+        if (userData) {
+          const userInfo = JSON.parse(userData)
+          setUsername(userInfo.username)
+          setPassword(userInfo.password)
+
+          await handleLogin(userInfo.username, userInfo.password)
+        }
+      }
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleLogin = async (username: string, password: string) => {
+    setIsLoading(true)
+
+    try {
+      const token: string = await LoginSenior(username, password)
+
+      getUserInfo(username, token).then((res) => {
+        const userInfo: IUserInfo = {
+          username: res.username,
+          fullName: res.fullName,
+          email: res.email,
+          login: username,
+          password: password,
+          tenantDomain: res.tenantDomain,
+          tenantName: res.tenantName,
+          accessToken: token,
+        }
+
+        if (token) {
+          dispatch(setUser(userInfo))
+
+          if (keepLogin === true) {
+            AsyncStorage.setItem(
+              'userData',
+              JSON.stringify({ username, password })
+            )
+            AsyncStorage.setItem('keepLogin', JSON.stringify(keepLogin))
+          }
+
+          navigation.navigate('HomeRoute')
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <Pressable flex={1} bgColor={'#0171BB'} onPress={() => Keyboard.dismiss()}>
@@ -164,8 +201,10 @@ export default function Login({ navigation }: { navigation: any }) {
 
             <View ml={1}>
               <Checkbox
+                onChange={(e) => setKeepLogin(e)}
                 _checked={{ bgColor: '#0171BB' }}
-                value={'remember'}
+                value='keepLogin'
+                defaultIsChecked={keepLogin}
                 children={'Lembrar de mim'}
                 size={'md'}
               />
@@ -181,7 +220,7 @@ export default function Login({ navigation }: { navigation: any }) {
               isLoadingText={'Carregando...'}
               bgColor={'#0171BB'}
               borderRadius={8}
-              onPress={handleLogin}
+              onPress={() => handleLogin(username, password)}
             >
               LOGIN
             </Button>
