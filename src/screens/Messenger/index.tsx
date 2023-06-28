@@ -1,24 +1,24 @@
-import { View, Text, Input, Icon, CircleIcon, Image } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import Header from '../../components/Header';
-import { useNavigation } from '@react-navigation/native';
-import { getConversas } from '../../api/messages/index';
-import { IChat } from '../../interfaces/IChat';
+import { View, Text, Input, Icon, CircleIcon, Image } from 'native-base'
+import { MaterialIcons } from '@expo/vector-icons'
+import React from 'react'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import Header from '../../components/Header'
+import { useNavigation } from '@react-navigation/native'
+import { getConversas } from '../../api/Messages/index'
+import { IChat } from '../../interfaces/IChat'
 export default function Messenger() {
-  const navigation: any = useNavigation();
+  const navigation: any = useNavigation()
 
-  const [conversas, setConversas] = React.useState<IChat[]>([]);
+  const [conversas, setConversas] = React.useState<IChat[]>([])
 
   const fetchConversas = async (): Promise<void> => {
-    let resposta: IChat[] = await getConversas();
-    setConversas(resposta);
-  };
+    let resposta: IChat[] = await getConversas()
+    setConversas(resposta)
+  }
 
   React.useEffect(() => {
-    fetchConversas();
-  }, []);
+    fetchConversas()
+  }, [])
 
   const renderItem = ({ item, index }: { item: IChat; index: number }) => {
     return (
@@ -33,15 +33,14 @@ export default function Messenger() {
           borderBottomColor: 'gray.400',
         }}
         onPress={() => {
-          
-          navigation.navigate('Chat', item);
+          navigation.navigate('Chat', item)
         }}
       >
         <View w={'22%'} alignItems={'center'}>
           <Image
             source={{ uri: item.image }}
-            alt="Alternate Text"
-            size="md"
+            alt='Alternate Text'
+            size='md'
             borderRadius={'full'}
           />
         </View>
@@ -75,8 +74,8 @@ export default function Messenger() {
           </View>
         </View>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   return (
     <View flex={1}>
@@ -90,8 +89,8 @@ export default function Messenger() {
               <Icon
                 as={<MaterialIcons name={'search'} />}
                 size={5}
-                mr="2"
-                color="primary"
+                mr='2'
+                color='primary'
               />
             </TouchableOpacity>
           }
@@ -99,5 +98,5 @@ export default function Messenger() {
       </View>
       <FlatList data={conversas} renderItem={renderItem} />
     </View>
-  );
+  )
 }

@@ -1,45 +1,45 @@
-import React, { useEffect } from 'react';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { View, Text, IconButton, Input, Icon } from 'native-base';
-import { FlatList } from 'react-native-gesture-handler';
-import { TouchableOpacity } from 'react-native';
-import Header from '../../components/Header';
-import { io, Socket } from 'socket.io-client';
-import { IChat } from '../../interfaces/IChat';
-import { IMensagem } from '../../interfaces/IMensagem';
-import { getMensagens } from '../../api/messages';
-import { useSelector } from 'react-redux';
-import { IUser } from '../../interfaces/IUser';
-import { socket } from '../../../App';
+import React, { useEffect } from 'react'
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { View, Text, IconButton, Input, Icon } from 'native-base'
+import { FlatList } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
+import Header from '../../components/Header'
+import { io, Socket } from 'socket.io-client'
+import { IChat } from '../../interfaces/IChat'
+import { IMensagem } from '../../interfaces/IMensagem'
+import { getMensagens } from '../../api/Messages'
+import { useSelector } from 'react-redux'
+import { IUser } from '../../interfaces/IUser'
+import { socket } from '../../../App'
 
 const Chat = (props: any) => {
-  const date = new Date();
-  const conversa: IChat = props.route.params;
-  const [mensageTxt, setMensageTxt] = React.useState<string>('');
-  const [mensagens, setMensagens] = React.useState<IMensagem[]>([]);
-  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
+  const date = new Date()
+  const conversa: IChat = props.route.params
+  const [mensageTxt, setMensageTxt] = React.useState<string>('')
+  const [mensagens, setMensagens] = React.useState<IMensagem[]>([])
+  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user)
   React.useEffect(() => {
-    fetchMensagens();
+    fetchMensagens()
     socket.on('chat mensage', (data: IMensagem[]) => {
-      setMensagens(data);
-    });
-  }, []);
+      setMensagens(data)
+    })
+  }, [])
   const sendMensage = () => {
     let mensagen: IMensagem = {
       message: mensageTxt,
       sendFrom: userInfo.username,
       date: String(date.getTime()),
-    };
-    let teste: IMensagem[] = [mensagen, ...mensagens];
-    setMensagens([mensagen, ...mensagens]);
-    socket.emit('chat mensage', teste);
-    setMensageTxt('');
-  };
+    }
+    let teste: IMensagem[] = [mensagen, ...mensagens]
+    setMensagens([mensagen, ...mensagens])
+    socket.emit('chat mensage', teste)
+    setMensageTxt('')
+  }
 
   const fetchMensagens = async (): Promise<void> => {
-    let resposta: IMensagem[] = await getMensagens(conversa.chatId);
-    setMensagens(resposta);
-  };
+    let resposta: IMensagem[] = await getMensagens(conversa.chatId)
+    setMensagens(resposta)
+  }
 
   const renderItem = ({ item, index }: { item: IMensagem; index: number }) => {
     return (
@@ -64,8 +64,8 @@ const Chat = (props: any) => {
           </Text>
         </View>
       </View>
-    );
-  };
+    )
+  }
 
   return (
     <View flex={1} w={'100%'}>
@@ -83,7 +83,7 @@ const Chat = (props: any) => {
         <View w={'10%'}>
           <IconButton
             mr={4}
-            variant="ghost"
+            variant='ghost'
             _icon={{
               as: Ionicons,
               name: 'ios-camera-outline',
@@ -107,7 +107,7 @@ const Chat = (props: any) => {
                     <MaterialIcons name={mensageTxt == '' ? 'mic' : 'send'} />
                   }
                   size={8}
-                  color="primary.500"
+                  color='primary.500'
                 />
               </TouchableOpacity>
             }
@@ -115,7 +115,7 @@ const Chat = (props: any) => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Chat;
+export default Chat
