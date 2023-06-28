@@ -4,20 +4,29 @@ import React from 'react';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
-import { getConversas } from '../../api/messages/index';
+import { getConversas } from '../../api/Messages/index';
 import { IChat } from '../../interfaces/IChat';
+import { IUser } from '../../interfaces/IUser';
+import { useSelector } from 'react-redux';
+import { socket } from '../../../App';
+
 export default function Messenger() {
   const navigation: any = useNavigation();
 
   const [conversas, setConversas] = React.useState<IChat[]>([]);
+  const [unRead, setUnRead] = React.useState<number>(0);
+  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
 
   const fetchConversas = async (): Promise<void> => {
-    let resposta: IChat[] = await getConversas();
+    let resposta: IChat[] = await getConversas(userInfo.username);
     setConversas(resposta);
   };
 
   React.useEffect(() => {
     fetchConversas();
+    socket.on('atualizar conversas', (chatId: number) => {
+      fetchConversas();
+    });
   }, []);
 
   const renderItem = ({ item, index }: { item: IChat; index: number }) => {
@@ -33,7 +42,7 @@ export default function Messenger() {
           borderBottomColor: 'gray.400',
         }}
         onPress={() => {
-          
+          socket.emit('read mensage', {user: userInfo.username, chatId: item.chatId});
           navigation.navigate('Chat', item);
         }}
       >
@@ -56,22 +65,26 @@ export default function Messenger() {
             <Text fontWeight={'bold'} color={'primary.400'}>
               16:20
             </Text>
-            <View
-              position={'relative'}
-              alignItems={'center'}
-              mt={2}
-              justifyContent={'center'}
-            >
-              <CircleIcon color={'primary.500'} size={'lg'} />
-              <Text
-                color={'white'}
-                fontWeight={'bold'}
-                mt={3}
-                position={'absolute'}
+            {item.unreadMessenges === 0 ? (
+              ''
+            ) : (
+              <View
+                position={'relative'}
+                alignItems={'center'}
+                mt={2}
+                justifyContent={'center'}
               >
-                1
-              </Text>
-            </View>
+                <CircleIcon color={'primary.500'} size={'lg'} />
+                <Text
+                  color={'white'}
+                  fontWeight={'bold'}
+                  mt={3}
+                  position={'absolute'}
+                >
+                  {item.unreadMessenges === 0 ? '' : item.unreadMessenges}
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       </TouchableOpacity>

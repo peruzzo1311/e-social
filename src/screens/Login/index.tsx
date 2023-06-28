@@ -9,7 +9,7 @@ import {
   Pressable,
   Text,
   View,
-  VStack,
+  VStack
 } from 'native-base';
 import React, { useEffect } from 'react';
 import { Keyboard } from 'react-native';
@@ -151,7 +151,7 @@ export default function Login({ navigation }: { navigation: any }) {
                 bgColor={'#0171BB'}
                 borderRadius={8}
                 onPress={() => {
-                  dispatch(setUser({username: username}))
+                  dispatch(setUser({ username: username }));
                   navigation.navigate('HomeRoute');
                 }}
               >

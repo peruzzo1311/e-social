@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { View, Text, IconButton, Input, Icon } from 'native-base';
-import { FlatList } from 'react-native-gesture-handler';
+import { Icon, IconButton, Input, Text, View } from 'native-base';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { socket } from '../../../App';
+import { getMensagens, setMensagemApi } from '../../api/Messages';
 import Header from '../../components/Header';
-import { io, Socket } from 'socket.io-client';
 import { IChat } from '../../interfaces/IChat';
 import { IMensagem } from '../../interfaces/IMensagem';
-import { getMensagens } from '../../api/messages';
-import { useSelector } from 'react-redux';
 import { IUser } from '../../interfaces/IUser';
-import { socket } from '../../../App';
 
 const Chat = (props: any) => {
   const date = new Date();
@@ -20,24 +19,28 @@ const Chat = (props: any) => {
   const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
   React.useEffect(() => {
     fetchMensagens();
-    socket.on('chat mensage', (data: IMensagem[]) => {
+    socket.on('chat mensage', (data: IMensagem[]) => { 
       setMensagens(data);
     });
   }, []);
-  const sendMensage = () => {
-    let mensagen: IMensagem = {
+
+  const sendMensage = async () => {
+    let mensagen = {
       message: mensageTxt,
       sendFrom: userInfo.username,
+      sendTo: conversa.chatWith,
       date: String(date.getTime()),
+      chatId: conversa.chatId,
     };
-    let teste: IMensagem[] = [mensagen, ...mensagens];
+    let teste: IMensagem[] = [mensagen, ...mensagens]
     setMensagens([mensagen, ...mensagens]);
     socket.emit('chat mensage', teste);
     setMensageTxt('');
+    await setMensagemApi(userInfo.username, conversa.chatId, mensagen)
   };
 
   const fetchMensagens = async (): Promise<void> => {
-    let resposta: IMensagem[] = await getMensagens(conversa.chatId);
+    let resposta: IMensagem[] = await getMensagens(userInfo.username, conversa.chatId);
     setMensagens(resposta);
   };
 
