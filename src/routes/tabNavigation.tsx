@@ -57,6 +57,7 @@ export default function TabRoutes() {
         name="NewPost"
         component={NewPost}
         options={{
+          tabBarStyle:{display: 'none'} ,
           tabBarIcon: () => <TabBarIconNew />,
         }}
       />

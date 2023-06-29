@@ -11,10 +11,9 @@ import { useSelector } from 'react-redux';
 import { socket } from '../../../App';
 
 export default function Messenger() {
-  const navigation: any = useNavigation();
+  const navigation: any = useNavigation()
 
   const [conversas, setConversas] = React.useState<IChat[]>([]);
-  const [unRead, setUnRead] = React.useState<number>(0);
   const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
 
   const fetchConversas = async (): Promise<void> => {
@@ -23,6 +22,7 @@ export default function Messenger() {
   };
 
   React.useEffect(() => {
+    console.log(userInfo);
     fetchConversas();
     socket.on('atualizar conversas', (chatId: number) => {
       fetchConversas();
@@ -49,8 +49,8 @@ export default function Messenger() {
         <View w={'22%'} alignItems={'center'}>
           <Image
             source={{ uri: item.image }}
-            alt="Alternate Text"
-            size="md"
+            alt='Alternate Text'
+            size='md'
             borderRadius={'full'}
           />
         </View>
@@ -88,8 +88,8 @@ export default function Messenger() {
           </View>
         </View>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   return (
     <View flex={1}>
@@ -103,8 +103,8 @@ export default function Messenger() {
               <Icon
                 as={<MaterialIcons name={'search'} />}
                 size={5}
-                mr="2"
-                color="primary"
+                mr='2'
+                color='primary'
               />
             </TouchableOpacity>
           }
@@ -112,5 +112,5 @@ export default function Messenger() {
       </View>
       <FlatList data={conversas} renderItem={renderItem} />
     </View>
-  );
+  )
 }

@@ -12,11 +12,11 @@ import { IMensagem } from '../../interfaces/IMensagem';
 import { IUser } from '../../interfaces/IUser';
 
 const Chat = (props: any) => {
-  const date = new Date();
-  const conversa: IChat = props.route.params;
-  const [mensageTxt, setMensageTxt] = React.useState<string>('');
-  const [mensagens, setMensagens] = React.useState<IMensagem[]>([]);
-  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
+  const date = new Date()
+  const conversa: IChat = props.route.params
+  const [mensageTxt, setMensageTxt] = React.useState<string>('')
+  const [mensagens, setMensagens] = React.useState<IMensagem[]>([])
+  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user)
   React.useEffect(() => {
     fetchMensagens();
     socket.on('chat mensage', (data: IMensagem[]) => { 
@@ -67,8 +67,8 @@ const Chat = (props: any) => {
           </Text>
         </View>
       </View>
-    );
-  };
+    )
+  }
 
   return (
     <View flex={1} w={'100%'}>
@@ -86,7 +86,7 @@ const Chat = (props: any) => {
         <View w={'10%'}>
           <IconButton
             mr={4}
-            variant="ghost"
+            variant='ghost'
             _icon={{
               as: Ionicons,
               name: 'ios-camera-outline',
@@ -110,7 +110,7 @@ const Chat = (props: any) => {
                     <MaterialIcons name={mensageTxt == '' ? 'mic' : 'send'} />
                   }
                   size={8}
-                  color="primary.500"
+                  color='primary.500'
                 />
               </TouchableOpacity>
             }
@@ -118,7 +118,7 @@ const Chat = (props: any) => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Chat;
+export default Chat

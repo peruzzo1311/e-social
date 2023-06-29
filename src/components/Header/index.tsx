@@ -1,22 +1,31 @@
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { Box, Icon, Image, Button, Text, View, IconButton } from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-const logoPrisma = require('../../assets/images/logo-prisma.png');
-import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
-const theuzin = require('../../assets/images/LilTheuz.png');
+import { Ionicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import {
+  Box,
+  Icon,
+  Image,
+  Button,
+  Text,
+  View,
+  IconButton,
+  HStack,
+} from 'native-base'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+const logoPrisma = require('../../assets/images/logo-prisma.png')
+import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons'
+import React, { useState } from 'react'
+const theuzin = require('../../assets/images/LilTheuz.png')
 export default function Header({
   opcao,
   nome,
   img,
 }: {
-  opcao: number;
-  nome?: string;
-  img?: string;
+  opcao: number
+  nome?: string
+  img?: string
 }) {
-  const navigation: any = useNavigation();
-  const [theme, setTheme] = useState(false);
+  const navigation: any = useNavigation()
+  const [theme, setTheme] = useState(false)
 
   switch (opcao) {
     case 0:
@@ -35,20 +44,30 @@ export default function Header({
             alt='Logo Prisma'
             resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Profile')
-            }}
-          >
-            <Icon
-              as={Ionicons}
-              name='person-circle'
-              size={12}
-              color={'white'}
-            />
-          </TouchableOpacity>
+
+          <HStack alignItems={'center'} space={4}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Notifications')}
+            >
+              <Icon
+                as={Ionicons}
+                name='ios-notifications'
+                size={8}
+                color={'white'}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+              <Icon
+                as={Ionicons}
+                name='person-circle'
+                size={8}
+                color={'white'}
+              />
+            </TouchableOpacity>
+          </HStack>
         </Box>
       )
       break
@@ -135,7 +154,7 @@ export default function Header({
             alt='Logo Prisma'
             resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
         </Box>
       )
@@ -190,7 +209,7 @@ export default function Header({
             }}
           />
         </Box>
-      );
+      )
     case 5:
       return (
         <Box
@@ -204,20 +223,20 @@ export default function Header({
         >
           <Image
             source={logoPrisma}
-            alt="Logo Prisma"
-            resizeMode="cover"
+            alt='Logo Prisma'
+            resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Chat');
+              navigation.navigate('Chat')
             }}
           >
-            <MaterialIcons name="add-comment" size={28} color={'white'} />
+            <MaterialIcons name='add-comment' size={28} color={'white'} />
           </TouchableOpacity>
         </Box>
-      );
+      )
     default:
       return (
         <Box
@@ -234,7 +253,7 @@ export default function Header({
             alt='Logo Prisma'
             resizeMode='cover'
             h={16}
-            w={175}
+            w={150}
           />
           <TouchableOpacity
             onPress={() => {
