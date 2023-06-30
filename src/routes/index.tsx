@@ -9,6 +9,7 @@ import Perfil from '../screens/Profile'
 import Login from '../screens/Login'
 import Chat from '../screens/Chat'
 import Notifications from '../screens/Notifications'
+import NewChat from '../screens/NewChat';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ export default function Routes() {
         <Stack.Screen name='Profile' component={Perfil} />
         <Stack.Screen name='Chat' component={Chat} />
         <Stack.Screen name='Notifications' component={Notifications} />
+        <Stack.Screen name='NewChat' component={NewChat} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -4,4 +4,5 @@ export interface IChat {
   image: string;
   lastMessage: string;
   unreadMessenges: number;
+  userId: number;
 }

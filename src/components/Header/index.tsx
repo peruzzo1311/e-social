@@ -230,7 +230,7 @@ export default function Header({
           />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Chat')
+              navigation.navigate('NewChat')
             }}
           >
             <MaterialIcons name='add-comment' size={28} color={'white'} />
