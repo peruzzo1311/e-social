@@ -112,9 +112,9 @@ export const getContatos = async (): Promise<IContato[]> => {
   return resposta;
 };
 
-export const setConversa = async (user: string, conversa: IChat) => {
+export const setConversa = async (userObj: any, conversa: IChat) => {
   let data = JSON.stringify({
-    user: user,
+    user: userObj,
     conversa: conversa,
   });
 

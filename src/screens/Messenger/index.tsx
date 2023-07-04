@@ -9,12 +9,14 @@ import { IChat } from '../../interfaces/IChat';
 import { IUser } from '../../interfaces/IUser';
 import { useSelector } from 'react-redux';
 import { socket } from '../../../App';
+import IUserInfo from '../../interfaces/IUserInfo';
 
 export default function Messenger() {
   const navigation: any = useNavigation()
 
   const [conversas, setConversas] = React.useState<IChat[]>([]);
-  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
+  const userInfo: IUserInfo = useSelector((state: { user: IUserInfo }) => state.user);
+  const [again, setAgain] = React.useState<number>(0);
 
   const fetchConversas = async (): Promise<void> => {
     let resposta: IChat[] = await getConversas(userInfo.username);
@@ -27,7 +29,7 @@ export default function Messenger() {
     socket.on('atualizar conversas', (chatId: number) => {
       fetchConversas();
     });
-  }, []);
+  }, [again]);
 
   const renderItem = ({ item, index }: { item: IChat; index: number }) => {
     return (
@@ -43,6 +45,7 @@ export default function Messenger() {
         }}
         onPress={() => {
           socket.emit('read mensage', {user: userInfo.username, chatId: item.chatId});
+          setAgain(again + 1);
           navigation.navigate('Chat', item);
         }}
       >

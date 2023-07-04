@@ -7,4 +7,5 @@ export default interface IUserInfo {
   accessToken: string
   login: string
   password: string
+  img: string
 }

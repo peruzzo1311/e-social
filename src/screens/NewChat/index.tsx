@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Icon, Input, View, Image, Text } from 'native-base';
+import { Icon, Image, Input, Text, View } from 'native-base';
 import React from 'react';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
@@ -8,11 +8,13 @@ import { getContatos, setConversa } from '../../api/Messages';
 import Header from '../../components/Header';
 import { IChat } from '../../interfaces/IChat';
 import { IContato } from '../../interfaces/IContato';
-import { IUser } from '../../interfaces/IUser';
+import IUserInfo from '../../interfaces/IUserInfo';
 
 const NewChat = (props: any) => {
   const navigation: any = useNavigation();
-  const userInfo: IUser = useSelector((state: { user: IUser }) => state.user);
+  const userInfo: IUserInfo = useSelector(
+    (state: { user: IUserInfo }) => state.user
+  );
 
   const [contatos, setContatos] = React.useState<IContato[]>([]);
 
@@ -21,8 +23,8 @@ const NewChat = (props: any) => {
     setContatos(resposta);
     console.log(resposta);
   };
-  const sendConversa = async (user: string, conversa: IChat) => {
-    await setConversa(user, conversa);
+  const sendConversa = async (userObj: any, conversa: IChat) => {
+    await setConversa(userObj, conversa);
     navigation.navigate('Chat', conversa);
   };
   React.useEffect(() => {
@@ -42,6 +44,10 @@ const NewChat = (props: any) => {
           borderBottomColor: 'gray.400',
         }}
         onPress={() => {
+          let userObj = {
+            username: userInfo.username,
+            img: userInfo.img,
+          };
           const date = new Date();
           let conversa: IChat = {
             userId: item.id,
@@ -51,7 +57,7 @@ const NewChat = (props: any) => {
             lastMessage: '',
             unreadMessenges: 0,
           };
-          sendConversa(userInfo.username, conversa);
+          sendConversa(userObj, conversa);
         }}
       >
         <View w={'22%'} alignItems={'center'}>

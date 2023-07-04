@@ -26,7 +26,7 @@ export default function Routes() {
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='HomeRoute' component={TabRoutes} />
         <Stack.Screen name='Profile' component={Perfil} />
-        <Stack.Screen name='Chat' component={Chat} />
+        <Stack.Screen name='Chat' component={Chat} options={{detachPreviousScreen:true}}/>
         <Stack.Screen name='Notifications' component={Notifications} />
         <Stack.Screen name='NewChat' component={NewChat} />
       </Stack.Navigator>

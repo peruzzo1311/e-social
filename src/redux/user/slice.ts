@@ -9,6 +9,7 @@ export const userInitialState = {
   tenantName: '',
   accessToken: '',
   password: '',
+  img: ''
 } as IUserInfo
 
 export const userSlice = createSlice({
@@ -23,6 +24,7 @@ export const userSlice = createSlice({
       state.tenantName = action.payload.tenantName
       state.accessToken = action.payload.accessToken
       state.password = action.payload.password
+      state.img = action.payload.img
     },
   },
 })
