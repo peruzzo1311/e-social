@@ -1,15 +1,16 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { Icon, IconButton, Input, Text, View } from 'native-base';
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { socket } from '../Home/index';
-import { getMensagens, setMensagemApi } from '../../api/Messages';
-import Header from '../../components/Header';
-import { IChat } from '../../interfaces/IChat';
-import { IMensagem } from '../../interfaces/IMensagem';
-import { IUser } from '../../interfaces/IUser';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { Icon, IconButton, Input, Text, View } from 'native-base'
+import React from 'react'
+import { TouchableOpacity } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
+
+import { getMensagens, setMensagemApi } from '../../api/Messages/index'
+import Header from '../../components/Header'
+import { IChat } from '../../interfaces/IChat'
+import { IMensagem } from '../../interfaces/IMensagem'
+import { IUser } from '../../interfaces/IUser'
+import { socket } from '../Home'
 
 const Chat = (props: any) => {
   const date = new Date()
@@ -18,11 +19,11 @@ const Chat = (props: any) => {
   const [mensagens, setMensagens] = React.useState<IMensagem[]>([])
   const userInfo: IUser = useSelector((state: { user: IUser }) => state.user)
   React.useEffect(() => {
-    fetchMensagens();
-    socket.on('chat mensage', (data: IMensagem[]) => { 
-      setMensagens(data);
-    });
-  }, []);
+    fetchMensagens()
+    socket.on('chat mensage', (data: IMensagem[]) => {
+      setMensagens(data)
+    })
+  }, [])
 
   const sendMensage = async () => {
     let mensagen = {
@@ -31,18 +32,21 @@ const Chat = (props: any) => {
       sendTo: conversa.chatWith,
       date: String(date.getTime()),
       chatId: conversa.chatId,
-    };
+    }
     let teste: IMensagem[] = [mensagen, ...mensagens]
-    setMensagens([mensagen, ...mensagens]);
-    socket.emit('chat mensage', teste);
-    setMensageTxt('');
+    setMensagens([mensagen, ...mensagens])
+    socket.emit('chat mensage', teste)
+    setMensageTxt('')
     await setMensagemApi(userInfo.username, conversa.chatId, mensagen)
-  };
+  }
 
   const fetchMensagens = async (): Promise<void> => {
-    let resposta: IMensagem[] = await getMensagens(userInfo.username, conversa.chatId);
-    setMensagens(resposta);
-  };
+    let resposta: IMensagem[] = await getMensagens(
+      userInfo.username,
+      conversa.chatId
+    )
+    setMensagens(resposta)
+  }
 
   const renderItem = ({ item, index }: { item: IMensagem; index: number }) => {
     return (
