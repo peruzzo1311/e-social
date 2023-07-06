@@ -13,7 +13,8 @@ export default function FeedCard(item: IPost) {
   const [liked, setLiked] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  if (item.attachment.url) {
+  if (!item.attachment.url) {
+    item.attachment.url = "";
   }
   const images = [{ url: item.attachment.url, props: {} }];
 
