@@ -101,6 +101,8 @@ export default function Login({ navigation }: { navigation: any }) {
             AsyncStorage.setItem('keepLogin', JSON.stringify(keepLogin))
           }
 
+          
+
           navigation.navigate('HomeRoute')
         }
       })
@@ -150,6 +152,8 @@ export default function Login({ navigation }: { navigation: any }) {
                   fontSize={'md'}
                   fontWeight={600}
                   borderRadius={8}
+                  autoCapitalize={'none'}
+                  autoCorrect={false}
                   p={3}
                   placeholder='usuario@tenant.com'
                   InputLeftElement={
@@ -176,6 +180,8 @@ export default function Login({ navigation }: { navigation: any }) {
                   fontWeight={600}
                   borderRadius={8}
                   placeholder='***********'
+                  autoCapitalize={'none'}
+                  autoCorrect={false}
                   type={showPassword ? 'text' : 'password'}
                   p={3}
                   InputRightElement={

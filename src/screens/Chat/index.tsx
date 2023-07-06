@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { socket } from '../../../App';
-import { getMensagens, setMensagemApi } from '../../api/Messages';
+import { getMensagens, setMensagemApi } from '../../api/Messages/index';
 import Header from '../../components/Header';
 import { IChat } from '../../interfaces/IChat';
 import { IMensagem } from '../../interfaces/IMensagem';

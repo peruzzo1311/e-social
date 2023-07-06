@@ -4,7 +4,7 @@ import { Icon, Input, View, Image, Text } from 'native-base';
 import React from 'react';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-import { getContatos, setConversa } from '../../api/Messages';
+import { getContatos, setConversa } from '../../api/Messages/index';
 import Header from '../../components/Header';
 import { IChat } from '../../interfaces/IChat';
 import { IContato } from '../../interfaces/IContato';
