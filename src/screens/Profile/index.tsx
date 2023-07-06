@@ -1,12 +1,12 @@
-import { Image, Text, View, VStack } from 'native-base'
-import React from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Image, Text, View, VStack } from 'native-base';
+import React from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 
-import Header from '../../components/Header'
-import ProfileInfo from '../../components/ProfileInfo'
-import ProfileAppConfig from '../../components/ProfileAppConfig'
+import Header from '../../components/Header';
+import ProfileInfo from '../../components/ProfileInfo';
+import ProfileAppConfig from '../../components/ProfileAppConfig';
 
-const image = require('../../assets/images/Riki.jpg')
+const image = require('../../assets/images/Riki.jpg');
 
 export default function Profile() {
   return (
@@ -19,12 +19,14 @@ export default function Profile() {
             <View flexDir={'row'}>
               <View>
                 <Image
-                  source={image}
-                  alt='profile image'
+                  source={{
+                    uri: 'https://br-com-senior-blob-service-storage.s3.sa-east-1.amazonaws.com/prisma-democombrseniorx/temp/platform/user/1f688c73-869e-383d-b193-378eda10d30e/090edca6-8083-4936-ba5d-016ade616cda-user-photo.png',
+                  }}
+                  alt="profile image"
                   w={20}
                   h={20}
                   borderRadius={'full'}
-                  resizeMode='contain'
+                  resizeMode="contain"
                 />
               </View>
 
@@ -46,5 +48,5 @@ export default function Profile() {
         </VStack>
       </ScrollView>
     </View>
-  )
+  );
 }

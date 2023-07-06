@@ -3,4 +3,6 @@ export interface IChat {
   chatWith: string;
   image: string;
   lastMessage: string;
+  unreadMessenges: number;
+  userId: number;
 }

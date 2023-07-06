@@ -66,6 +66,7 @@ export default function TabRoutes() {
         name="Messenger"
         component={Messenger}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? 'chatbubbles' : 'chatbubbles-outline'}

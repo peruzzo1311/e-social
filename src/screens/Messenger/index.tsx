@@ -1,24 +1,35 @@
-import { View, Text, Input, Icon, CircleIcon, Image } from 'native-base'
-import { MaterialIcons } from '@expo/vector-icons'
-import React from 'react'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-import Header from '../../components/Header'
-import { useNavigation } from '@react-navigation/native'
-import { getConversas } from '../../api/Messages/index'
-import { IChat } from '../../interfaces/IChat'
+import { View, Text, Input, Icon, CircleIcon, Image } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
+import React from 'react';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
+import { getConversas } from '../../api/Messages/index';
+import { IChat } from '../../interfaces/IChat';
+import { IUser } from '../../interfaces/IUser';
+import { useSelector } from 'react-redux';
+import { socket } from '../Home/index';
+import IUserInfo from '../../interfaces/IUserInfo';
+
 export default function Messenger() {
   const navigation: any = useNavigation()
 
-  const [conversas, setConversas] = React.useState<IChat[]>([])
+  const [conversas, setConversas] = React.useState<IChat[]>([]);
+  const userInfo: IUserInfo = useSelector((state: { user: IUserInfo }) => state.user);
+  const [again, setAgain] = React.useState<number>(0);
 
   const fetchConversas = async (): Promise<void> => {
-    let resposta: IChat[] = await getConversas()
-    setConversas(resposta)
-  }
+    let resposta: IChat[] = await getConversas(userInfo.username);
+    setConversas(resposta);
+  };
 
   React.useEffect(() => {
-    fetchConversas()
-  }, [])
+    console.log(userInfo);
+    fetchConversas();
+    socket.on('atualizar conversas', (chatId: number) => {
+      fetchConversas();
+    });
+  }, [again]);
 
   const renderItem = ({ item, index }: { item: IChat; index: number }) => {
     return (
@@ -33,7 +44,9 @@ export default function Messenger() {
           borderBottomColor: 'gray.400',
         }}
         onPress={() => {
-          navigation.navigate('Chat', item)
+          socket.emit('read mensage', {user: userInfo.username, chatId: item.chatId});
+          setAgain(again + 1);
+          navigation.navigate('Chat', item);
         }}
       >
         <View w={'22%'} alignItems={'center'}>
@@ -55,22 +68,26 @@ export default function Messenger() {
             <Text fontWeight={'bold'} color={'primary.400'}>
               16:20
             </Text>
-            <View
-              position={'relative'}
-              alignItems={'center'}
-              mt={2}
-              justifyContent={'center'}
-            >
-              <CircleIcon color={'primary.500'} size={'lg'} />
-              <Text
-                color={'white'}
-                fontWeight={'bold'}
-                mt={3}
-                position={'absolute'}
+            {item.unreadMessenges === 0 ? (
+              ''
+            ) : (
+              <View
+                position={'relative'}
+                alignItems={'center'}
+                mt={2}
+                justifyContent={'center'}
               >
-                1
-              </Text>
-            </View>
+                <CircleIcon color={'primary.500'} size={'lg'} />
+                <Text
+                  color={'white'}
+                  fontWeight={'bold'}
+                  mt={3}
+                  position={'absolute'}
+                >
+                  {item.unreadMessenges === 0 ? '' : item.unreadMessenges}
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       </TouchableOpacity>
