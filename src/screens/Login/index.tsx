@@ -20,7 +20,7 @@ import { getProfile, getUserInfo, LoginSenior } from '../../api/Login';
 import IUserInfo from '../../interfaces/IUserInfo';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUser } from '../../redux/user/slice';
-
+export var connectedUser: string;
 const logoPrisma = require('../../assets/images/logo-prisma.png');
 const logoPrismaMini = require('../../assets/images/logo-mini.png');
 export default function Login({ navigation }: { navigation: any }) {
@@ -81,6 +81,7 @@ export default function Login({ navigation }: { navigation: any }) {
       getUserInfo(username, token).then(async (res) => {
         const profileInfo = await getProfile(token, res.fullName);
         console.log(profileInfo.profile.avatarUrl);
+        connectedUser =res.username;
         const userInfo: IUserInfo = {
           username: res.username,
           fullName: res.fullName,

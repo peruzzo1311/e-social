@@ -8,7 +8,7 @@ import { getConversas } from '../../api/Messages/index';
 import { IChat } from '../../interfaces/IChat';
 import { IUser } from '../../interfaces/IUser';
 import { useSelector } from 'react-redux';
-import { socket } from '../../../App';
+import { socket } from '../Home/index';
 import IUserInfo from '../../interfaces/IUserInfo';
 
 export default function Messenger() {
